@@ -1,0 +1,158 @@
+[
+  {
+    "id": 0,
+    "title": "Canoeing",
+    "angle": {
+      "h": 58,
+      "v": 8
+    },
+    "scale": 1.0,
+    "category": "activities",
+    "image": "canoe-featured-image.jpg",
+    "text": "You can rent tools for canoeing."
+  },
+  {
+    "id": 1,
+    "title": "Fishing",
+    "angle": {
+      "h": 158,
+      "v": 5
+    },
+    "scale": 0.8,
+    "category": "activities",
+    "image": "fishing.jpg",
+    "text": "Fishing is allowed."
+  },
+  {
+    "id": 2,
+    "title": "Picnic Shelter",
+    "angle": {
+      "h": 258,
+      "v": 5
+    },
+    "scale": 0.7,
+    "category": "activities",
+    "image": "picnic-shelter.jpg",
+    "text": "There are tables and benches."
+  },
+  {
+    "id": 3,
+    "title": "Lakeside Diner",
+    "angle": {
+      "h": 100,
+      "v": 6
+    },
+    "scale": 0.7,
+    "category": "restaurants",
+    "image": "diner.jpg",
+    "text": "Burgers and hotdogs"
+  },
+  {
+    "id": 4,
+    "title": "Jackpot Steakhouse",
+    "angle": {
+      "h": 190,
+      "v": 7
+    },
+    "scale": 0.6,
+    "category": "restaurants",
+    "image": "steakhouse.jpg",
+    "text": "Famous local beef steaks"
+  },
+  {
+    "id": 5,
+    "title": "Town's History Museum",
+    "angle": {
+      "h": 95,
+      "v": 7
+    },
+    "scale": 0.6,
+    "category": "museums",
+    "image": "museum-of-ny.jpg",
+    "text": "Learn the history of this town"
+  },
+  {
+    "id": 6,
+    "title": "Lakeside Gallery",
+    "angle": {
+      "h": 45,
+      "v": 9
+    },
+    "scale": 1.0,
+    "category": "museums",
+    "image": "lakeside-gallery.jpeg",
+    "text": "Small gallery"
+  },
+  {
+    "id": 7,
+    "title": "Striped Trout",
+    "angle": {
+      "h": 130,
+      "v": -10
+    },
+    "scale": 1.5,
+    "category": "creatures",
+    "image": "striped-trout.jpg",
+    "text": "You can find them a lot especially in spring season."
+  },
+  {
+    "id": 8,
+    "title": "Golden Eagle",
+    "angle": {
+      "h": 230,
+      "v": 9
+    },
+    "scale": 0.9,
+    "category": "creatures",
+    "image": "golden-eagle.jpg",
+    "text": "They are the king of the creatures in this area."
+  },
+  {
+    "id": 9,
+    "title": "Red Fox",
+    "angle": {
+      "h": 320,
+      "v": 4
+    },
+    "scale": 1.1,
+    "category": "creatures",
+    "image": "red-fox.jpg",
+    "text": "They are found at night."
+  },
+  {
+    "id": 10,
+    "title": "Oak",
+    "angle": {
+      "h": 338,
+      "v": 14
+    },
+    "scale": 1.0,
+    "category": "nature",
+    "image": "oak.jpg",
+    "text": "Major trees"
+  },
+  {
+    "id": 11,
+    "title": "Summer Grass",
+    "angle": {
+      "h": 250,
+      "v": -30
+    },
+    "scale": 1.8,
+    "category": "nature",
+    "image": "summer-grass.jpg",
+    "text": "Major grass"
+  },
+  {
+    "id": 12,
+    "title": "Blue Lake",
+    "angle": {
+      "h": 170,
+      "v": -15
+    },
+    "scale": 1.5,
+    "category": "nature",
+    "image": "lake.jpg",
+    "text": "Lake"
+  }
+]

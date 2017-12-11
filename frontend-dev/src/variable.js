@@ -1,0 +1,5 @@
+module.exports = {
+  SERVER_URL: 'http://localhost:3000',
+  SERIAL_VAL_ORIGIN_VERTICAL: 530,
+  SERIAL_VAL_ORIGIN_HORIZONTAL: 2600
+}
