@@ -1,0 +1,165 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('serial-socket:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/** ----------------------- added
+ * Listen on socket.io port
+ */
+
+var io = require('socket.io')(server);
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('disconnect', function(){
+    console.log('a user disconnected');
+  });
+
+  // socket.on('chat message', function(msg) {
+  //   console.log('message: ' + msg);
+  //   io.emit('chat message', msg);
+  // })
+});
+
+/** ----------------------- added
+ * Listen on serialport
+ */
+
+var Serial = require('serialport');
+var Readline = Serial.parsers.Readline;
+var spConfig = require('./serialport-config.js')
+var parserA = new Readline();
+var parserB = new Readline();
+
+var serialportA = new Serial(spConfig.SERIAL_PATH_A, {
+  baudRate: spConfig.BAUDRATE
+}, function (err) {
+  if (err) {
+    return console.log('Error on opening serial port A: ', err.message);
+  }
+  serialportA.flush()
+  console.log('serial port A on ' + spConfig.SERIAL_PATH_A + ' has been opend!');
+});
+
+var serialportB = new Serial(spConfig.SERIAL_PATH_B, {
+  baudRate: spConfig.BAUDRATE
+}, function (err) {
+  if (err) {
+    return console.log('Error on opening serial port: ', err.message);
+  }
+  serialportB.flush()
+  console.log('serial port B on ' + spConfig.SERIAL_PATH_B + ' has been opend!');
+});
+
+serialportA.pipe(parserA);
+serialportB.pipe(parserB);
+
+var noiseFilterA = require('./noiseFilterA.js');
+var noiseFilterB = require('./noiseFilterB.js');
+parserA.on('data', function(data) {
+  // when receiving data on serial port, emit it to socket.io
+  // console.log('Received data on serial port: ', data);
+
+  var result = noiseFilterA.filter(data);
+  if (result.isRotating === true) {
+    console.log("port " + result.encoder + ": " + result.value);
+    io.emit('serialport', result);
+  }
+});
+
+parserB.on('data', function(data) {
+  // when receiving data on serial port, emit it to socket.io
+  // console.log('Received data on serial port: ', data);
+
+  var result = noiseFilterB.filter(data);
+  if (result.isRotating === true) {
+    console.log("port " + result.encoder + ": " + result.value);
+    io.emit('serialport', result);
+  }
+});
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
