@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-moey-seiya": "ENV=MOEY_SEIYA node ./bin/www",
-    "start-surface": "ENV=SURFACE node ./bin/www"
+    "start-moey-seiya": "cross-env ENV=MOEY_SEIYA node ./bin/www",
+    "start-surface": "cross-env ENV=SURFACE node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -16,5 +16,8 @@
     "serialport": "^6.0.4",
     "serve-favicon": "~2.4.2",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.1"
   }
 }
