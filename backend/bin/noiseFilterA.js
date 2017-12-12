@@ -1,12 +1,14 @@
 "use strict";
+var nfConfig = require('./noiseFilterConfig.js')
 
 var recentOriginalValues = []; // array to store sample values for simple moving average
-var sampleNum = 5; // required number of samples for simple moving average
+var sampleNum = nfConfig.SAMPLE_NUM; // required number of samples for simple moving average
 
 var recentSmoothedValues = []; // array to store smoothed values
-var requiredContinualChangeCount = 3; // how many times the smoothed values need to change continuously to be counted as a rotation
-var staticValueCountLimit = 20; // if the smoothed values continuously take a static value for this amount of counts, the moving status gets back to false
+var requiredContinualChangeCount = nfConfig.REQUIRED_CONTINUAL_CHANGE_COUNT; // how many times the smoothed values need to change continuously to be counted as a rotation
+var staticValueCountLimit = nfConfig.STATIC_VALUE_COUNT_LIMIT; // if the smoothed values continuously take a static value for this amount of counts, the moving status gets back to false
 var smoothedSampleNum = requiredContinualChangeCount * staticValueCountLimit; // required number of samples for rotary detection
+var changeThreshold = nfConfig.CHANGE_THRESHOLD; // how much it is required to recognize that there is a change in comparison between two smoothed values
 
 module.exports = {
   filter: function (data) {
@@ -85,12 +87,11 @@ function shiftPush (array, arrayLengthToKeep, valueToAdd) {
 function detectRotation () {
   var continualChangeCount = 0;
   var staticCount = 0;
-  var threshold = 0.5;
 
   for (var i = recentSmoothedValues.length-1; i > 1; i--) {
     var delta = recentSmoothedValues[i-1] - recentSmoothedValues[i];
     // console.log('i: ' + i + ', delta: ' + delta)
-    if (delta > threshold) {
+    if (delta > changeThreshold) {
       // if the value at i is greater than the value at i-1...
       staticCount = 0;
 
@@ -116,7 +117,7 @@ function detectRotation () {
         // then let's finish the calcuration with returning false
         return false;
       }
-    } else if (delta < -threshold) {
+    } else if (delta < -changeThreshold) {
       // if the value at i is less than the value at i-1...
       staticCount = 0;
 
