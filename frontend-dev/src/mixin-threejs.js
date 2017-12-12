@@ -1,3 +1,4 @@
+import threejsConfig from '../static/js/threejsConfig.js'
 import Stats from 'stats.js'
 const stats = new Stats()
 
@@ -89,11 +90,12 @@ export default {
       geometry.scale(-1, 1, 1)
 
       var video = document.createElement('video')
-      video.width = 1920 // 3840
-      video.height = 960 // 1920
+      video.width = threejsConfig.VIDEO_WIDTH
+      video.height = threejsConfig.VIDEO_HEIGHT
       video.autoplay = true
       video.loop = true
-      video.src = 'static/movies/360vr.mov'
+      video.src = threejsConfig.VIDEO_SRC
+      video.display = 'none'
 
       var texture = new THREE.VideoTexture(video)
       texture.minFilter = THREE.LinearFilter
@@ -181,6 +183,15 @@ export default {
     animate (elapsedTime) {
       // loop
       requestAnimationFrame(this.animate)
+
+      // limit the framerate
+      let frameNumber = Math.round(elapsedTime / (1000 / threejsConfig.FRAMERATE))
+      if (frameNumber === this.lastFrameNumber) {
+        return
+      }
+      this.lastFrameNumber = frameNumber
+
+      // stats
       stats.begin()
       const T = this.T
 

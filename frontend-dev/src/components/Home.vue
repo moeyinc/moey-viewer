@@ -63,7 +63,8 @@ export default {
         sphere: null,
         balloonMesh: null,
         balloons: [],
-        objectGroup: null
+        objectGroup: null,
+        lastFrameNumber: 0
       }
     }
   },
