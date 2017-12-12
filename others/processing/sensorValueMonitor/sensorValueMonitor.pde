@@ -22,7 +22,8 @@ int noiseCount = 0; // how many times noises occured
 void setup() {
   size(1920, 800);
   printArray(Serial.list());
-  myPort = new Serial(this, Serial.list()[4], 115200);
+  String portName = "/dev/cu.usbmodem3533221";
+  myPort = new Serial(this, portName, 115200);
   myPort.bufferUntil('\n');
   myPort.clear();
   
@@ -50,8 +51,8 @@ void setup() {
   cp5.addSlider("requiredContinualChangeCount")
      .setPosition(700, 60)
      .setWidth(400)
-     .setRange(2, 10)
-     .setNumberOfTickMarks(9)
+     .setRange(1, 10)
+     .setNumberOfTickMarks(10)
      .setSliderMode(Slider.FLEXIBLE)
      ;
   cp5.addSlider("staticValueCountLimit")
