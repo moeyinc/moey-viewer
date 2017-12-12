@@ -89,8 +89,8 @@ export default {
       geometry.scale(-1, 1, 1)
 
       var video = document.createElement('video')
-      video.width = 3840
-      video.height = 1920
+      video.width = 1920 // 3840
+      video.height = 960 // 1920
       video.autoplay = true
       video.loop = true
       video.src = 'static/movies/360vr.mov'
