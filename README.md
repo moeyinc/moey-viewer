@@ -1,6 +1,6 @@
 # moey-viewer
 
-## 3 steps to start
+## 4 steps to start
 1) set up hardware components
 - Teensy3.2 * 2 (https://www.pjrc.com/teensy/teensy31.html)
 - Absolute Rotary Encoder * 2 (https://www.usdigital.com/products/encoders/absolute/rotary/shaft/ma3)
