@@ -2,6 +2,7 @@
   "name": "backend",
   "version": "0.0.0",
   "private": true,
+  "main": "main.js",
   "scripts": {
     "start-moey-seiya": "cross-env ENV=MOEY_SEIYA node ./bin/www",
     "start-surface": "cross-env ENV=SURFACE node ./bin/www"
@@ -18,6 +19,7 @@
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "cross-env": "^5.1.1"
+    "cross-env": "^5.1.1",
+    "electron-rebuild": "^1.7.3"
   }
 }
